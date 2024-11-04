@@ -1,25 +1,31 @@
-using MVxTask.Tickables;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MVxTask.Player
 {
-    public class PlayerController : ITickable
+    public class PlayerController
     {
-        private readonly PlayerModel model;
         private readonly Settings settings;
+        private readonly PlayerModel model;
+        private readonly PlayerView view;
 
         private Vector2 direction;
 
-        public PlayerController(Settings settings)
+        public PlayerController(Settings settings, PlayerModel model, PlayerView view)
         {
-            model.Move(direction);
+            this.settings = settings;
+
+            this.model = model;
+            model.OnHealthDepleted += OnHealthDepletedHandler;
+
+            this.view = view;
+            view.OnDamaged += model.Damage;
         }
 
         public void Tick()
         {
-            Move();
+            model.SetVelocity(direction * settings.Speed);
         }
 
         public void SetDirection(Vector2 direction)
@@ -27,9 +33,9 @@ namespace MVxTask.Player
             this.direction = direction;
         }
 
-        private void Move()
+        private void OnHealthDepletedHandler()
         {
-            model.Move(direction * settings.Speed);
+            Object.Destroy(view.gameObject);
         }
 
         [System.Serializable]

@@ -11,7 +11,6 @@ namespace MVxTask.Player
         private readonly PlayerView view;
 
         private float currentHealth;
-        private Vector2 position;
 
         public float MaxHealth => settings.MaxHealth;
 
@@ -22,7 +21,8 @@ namespace MVxTask.Player
         {
             this.settings = settings;
             this.view = view;
-            SetPosition(view.transform.position);
+            CurrentHealth = MaxHealth;
+            UpdateColor();
         }
 
         public float CurrentHealth 
@@ -40,17 +40,21 @@ namespace MVxTask.Player
         public void Damage(float damage)
         {
             CurrentHealth -= damage;
+            UpdateColor();
         }
 
-        public void SetPosition(Vector2 position)
+        private void UpdateColor()
         {
-            this.position = position;
-            view.ViewPosition(this.position);
+            view.SetColor(Color.Lerp(
+                settings.MinColor,
+                settings.MaxColor,
+                CurrentHealth / MaxHealth));
         }
 
-        public void Move(Vector2 offset)
+        public void SetVelocity(Vector2 velocity)
         {
-            SetPosition(position + offset);
+            if (view == null) return;
+            view.SetVelocity(velocity);
         }
 
         [System.Serializable]
@@ -58,6 +62,12 @@ namespace MVxTask.Player
         {
             [field: SerializeField]
             public float MaxHealth { get; private set; }
+
+            [field: SerializeField]
+            public Color MaxColor { get; private set; }
+
+            [field: SerializeField]
+            public Color MinColor { get; private set; }
         }
     }
 }

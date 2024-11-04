@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb600beb561a0dc4fbb8fb36eaa456bb, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  <Bootstrap>k__BackingField:
+    <PlayerViewPrefab>k__BackingField: {fileID: 6149232829738601068, guid: c9abd4f93ab80a145aeb009fe879bb9c,
+      type: 3}
+  <PlayerModel>k__BackingField:
+    <MaxHealth>k__BackingField: 50
+    <MaxColor>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+    <MinColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+  <PlayerController>k__BackingField:
+    <Speed>k__BackingField: 3

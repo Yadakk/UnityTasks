@@ -28,28 +28,27 @@ namespace MVxTask.Health
             IHealth = ihealth;
         }
 
+        private void HealthChangedHandler()
+        {
+            UpdateBar();
+        }
+
         private void SubscribeToIHealth()
         {
             if (IHealth == null) return;
             IHealth.OnHealthChanged += HealthChangedHandler;
-            IHealth.OnHealthDepleted += HealthDepletedHandler;
+            UpdateBar();
         }
 
         private void UnsubscribeFromIHealth()
         {
             if (IHealth == null) return;
             IHealth.OnHealthChanged -= HealthChangedHandler;
-            IHealth.OnHealthDepleted -= HealthDepletedHandler;
         }
 
-        private void HealthChangedHandler()
+        private void UpdateBar()
         {
             healthBar.value = IHealth.CurrentHealth / IHealth.MaxHealth;
-        }
-
-        private void HealthDepletedHandler()
-        {
-            Debug.Log("OnPlayerDeath");
         }
     }
 }
